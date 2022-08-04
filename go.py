@@ -268,6 +268,7 @@ class LibertyTracker():
 
     def _update_liberties(self, group_id, add=set(), remove=set()):
         group = self.groups[group_id]
+        if type(remove) == tuple: remove = set(remove) # prevents TypeError when subtracting frozenset – tuple in: `new_libs = (group.liberties | add) - remove`
         new_libs = (group.liberties | add) - remove
         self.groups[group_id] = Group(
             group_id, group.stones, new_libs, group.color)
